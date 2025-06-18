@@ -1,5 +1,8 @@
 {
   "app-title": "Terveysvalmentaja-sovellus",
+  "sign-up": "Rekisteröidy",
+  "login": "Kirjaudu",
+  "health-checks": "Terveystarkastukset",
   "app-description": "Luonut Haitech",
   "age": "Ikä",
   "height": "Pituus (cm)",
