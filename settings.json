@@ -1,0 +1,12 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "files.exclude": {
+      "**/.next": true,
+      "**/node_modules": true,
+      "**/dist": true
+    },
+    "eslint.validate": ["javascript", "typescript", "typescriptreact"]
+  }
