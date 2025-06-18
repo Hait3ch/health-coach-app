@@ -1,18 +1,10 @@
-import type { Metadata } from "next";
+"use client";
+import "../lib/i18n"; // Import once
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Health Coach App",
-  description: "Created by Haitech",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html lang="en">
       <body>{children}</body>
     </html>
   );
