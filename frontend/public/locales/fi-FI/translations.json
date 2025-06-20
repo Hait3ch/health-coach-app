@@ -27,5 +27,14 @@
   "your-risk-score-is": "Terveysriskipisteesi on",
   "recommendation-high-risk": "Sinulla on korkea terveysriski. Suosittelemme vahvasti elämäntapamuutoksia ja lääkärin konsultointia.",
   "recommendation-moderate-risk": "Harkitse liikuntatottumusten ja stressinhallinnan parantamista.",
-  "recommendation-low-risk": "Jatka hyvää työtä terveellisten elämäntapojen ylläpitämisessä."
+  "recommendation-low-risk": "Jatka hyvää työtä terveellisten elämäntapojen ylläpitämisessä.",
+  "your-health-checks": "Terveystarkastuksesi",
+  "no-health-checks": "Et ole vielä tehnyt yhtään terveystarkastusta.",
+  "date": "Päivämäärä",
+  "risk-level": "Riskitaso",
+  "start-new-check": "Aloita uusi tarkastus",
+  "welcome-title": "Tervetuloa Terveysvalmentaja-sovellukseen",
+  "welcome-description": "Tämä työkalu arvioi elämäntapatottumustesi terveysriskit ja antaa henkilökohtaisia suosituksia.",
+  "start-health-check": "Aloita terveystarkastus",
+  "health-check-title": "Täytä terveystarkastus"
 }

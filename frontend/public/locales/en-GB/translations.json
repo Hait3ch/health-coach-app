@@ -27,5 +27,14 @@
   "your-risk-score-is": "Your health risk score is",
   "recommendation-high-risk": "You have a high health risk. Strongly recommend lifestyle changes and medical consultation.",
   "recommendation-moderate-risk": "Consider improving exercise habits and stress management.",
-  "recommendation-low-risk": "Keep up the good work maintaining a healthy lifestyle."
+  "recommendation-low-risk": "Keep up the good work maintaining a healthy lifestyle.",
+  "your-health-checks": "Your Health Checks",
+  "no-health-checks": "You have not completed any health checks yet.",
+  "date": "Date",
+  "risk-level": "Risk Level",
+  "start-new-check": "Start New Health Check",
+  "welcome-title": "Welcome to the Health Coach App",
+  "welcome-description": "This tool helps assess your lifestyle health risks and offers personalized recommendations.",
+  "start-health-check": "Start Health Check",
+  "health-check-title": "Complete Your Health Check"
 }
