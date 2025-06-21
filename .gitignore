@@ -19,6 +19,7 @@ frontend/.DS_Store
 # Backend (Express)
 backend/node_modules/
 backend/.env
+backend/.env.local
 backend/.DS_Store
 
 # OS files
