@@ -1,7 +1,6 @@
 # Root
 .env
 .env.*.local
-.env.local
 .DS_Store
 node_modules/
 dist/

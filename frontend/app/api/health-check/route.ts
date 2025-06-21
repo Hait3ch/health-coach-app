@@ -1,8 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL
-  ? `${process.env.NEXT_PUBLIC_API_URL}/health-checks`
-  : "http://localhost:4000/health-checks";
+const BACKEND_URL = "http://localhost:4000/health-checks";
 
 export async function GET(req: NextRequest) {
   try {
