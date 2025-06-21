@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/nextjs";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 type HealthCheck = {
   _id: string;
@@ -59,31 +60,65 @@ export default function HealthChecksPage() {
           ) : (
             <ul className="space-y-3">
               {checks.map((check) => (
-                <li
-                  key={check._id}
-                  className="border p-4 rounded shadow-sm"
-                >
+                <li key={check._id} className="border p-4 rounded shadow-sm space-y-2">
                   <p>
-                    <strong>{t("date")}:</strong>{" "}
-                    {new Date(check.submittedAt).toLocaleDateString()}
+                    <strong>{t("date")}:</strong> {new Date(check.submittedAt).toLocaleDateString()}
                   </p>
                   <p>
                     <strong>{t("risk-score")}:</strong> {check.riskScore}
                   </p>
                   {check.recommendation && (
                     <p>
-                      <strong>{t("recommendation")}:</strong>{" "}
-                      {check.recommendation}
+                      <strong>{t("recommendation")}:</strong> {check.recommendation}
                     </p>
                   )}
+                  <div className="flex gap-3">
+                    <button
+                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                      onClick={() => {
+                        // Navigate to result page for this check
+                        window.location.href = `/health-checks/${check._id}`;
+                      }}
+                    >
+                      {t("view-details")}
+                    </button>
+                    <button
+                      className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                      onClick={async () => {
+                        if (
+                          confirm(
+                            t("are-you-sure-delete") ||
+                              "Are you sure you want to delete this check?"
+                          )
+                        ) {
+                          try {
+                            const res = await fetch(`/api/health-check?id=${check._id}`, {
+                              method: "DELETE",
+                            });
+                            if (res.ok) {
+                              setChecks((prev) => prev.filter((c) => c._id !== check._id));
+                            } else {
+                              alert("Failed to delete");
+                            }
+                          } catch (err) {
+                            console.error("Delete error", err);
+                            alert("Error deleting");
+                          }
+                        }
+                      }}
+                    >
+                      {t("delete")}
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
           )}
-
-          <button className="mt-6 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-            {t("start-new-check")}
-          </button>
+          <Link href="/health-check">
+            <button className="mt-6 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+              {t("start-new-check")}
+            </button>
+          </Link>
         </div>
       </SignedIn>
     </>

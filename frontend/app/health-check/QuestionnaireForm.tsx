@@ -2,11 +2,13 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 export default function QuestionnaireForm() {
   const { user } = useUser();
   const { t } = useTranslation();
+  const router = useRouter();
 
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
@@ -14,11 +16,7 @@ export default function QuestionnaireForm() {
   const [exercise, setExercise] = useState("");
   const [smoking, setSmoking] = useState("");
   const [stress, setStress] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [bmi, setBmi] = useState<number | null>(null);
-  const [riskScore, setRiskScore] = useState<number | null>(null);
-  const [recommendation, setRecommendation] = useState<string | null>(null);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [, setSubmitted] = useState(false);
 
   const calculateBMI = () => {
     const w = parseFloat(weight);
@@ -71,18 +69,13 @@ export default function QuestionnaireForm() {
 
     const ageNum = parseInt(age);
     const calculatedBmi = calculateBMI();
-    setBmi(calculatedBmi);
 
     const risk = calculateRiskScore();
-    setRiskScore(risk);
 
     let recKey: string | null = null;
     if (calculatedBmi !== null) {
       const bmiCat = getBmiCategoryKey(calculatedBmi, ageNum);
       recKey = getRecommendationKey(risk, bmiCat);
-      setRecommendation(t(recKey));
-    } else {
-      setRecommendation(null);
     }
 
     const dataToSend = {
@@ -111,8 +104,14 @@ export default function QuestionnaireForm() {
       if (!result.success) {
         alert("Failed to save health check result");
       } else {
-        setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 3000);
+        // Redirect to result page with data in query params
+        const params = new URLSearchParams({
+          bmi: calculatedBmi?.toString() || "",
+          riskScore: risk.toString(),
+          recommendation: recKey ? t(recKey) : "",
+          age: ageNum.toString(),
+        });
+        router.push(`/result?${params.toString()}`);
       }
     } catch (error) {
       console.error("Error posting health check:", error);
@@ -121,147 +120,118 @@ export default function QuestionnaireForm() {
   };
 
   return (
-    <>
-      <div
-        className={`fixed bottom-10 right-0 bg-green-600 text-white px-6 py-3 rounded shadow-md z-50 transform transition-transform duration-300 ${
-          showSuccess ? "translate-x-0 right-4" : "translate-x-full"
-        }`}
-        aria-live="polite"
-      >
-        {t("submit-success")}
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <label className="block mb-1 font-medium">{t("age")}</label>
+        <input
+          type="number"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+          className="w-full border rounded px-3 py-2"
+          required
+          min={0}
+        />
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* ... inputs and selects remain the same ... */}
+      <div>
+        <label className="block mb-1 font-medium">{t("height")}</label>
+        <input
+          type="number"
+          value={height}
+          onChange={(e) => setHeight(e.target.value)}
+          className="w-full border rounded px-3 py-2"
+          required
+          min={0}
+        />
+      </div>
 
-        <div>
-          <label className="block mb-1 font-medium">{t("age")}</label>
-          <input
-            type="number"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-            required
-            min={0}
-          />
-        </div>
+      <div>
+        <label className="block mb-1 font-medium">{t("weight")}</label>
+        <input
+          type="number"
+          value={weight}
+          onChange={(e) => setWeight(e.target.value)}
+          className="w-full border rounded px-3 py-2"
+          required
+          min={0}
+        />
+      </div>
 
-        <div>
-          <label className="block mb-1 font-medium">{t("height")}</label>
-          <input
-            type="number"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-            required
-            min={0}
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">{t("weight")}</label>
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-            required
-            min={0}
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">{t("exercise")}</label>
-          <select
-            value={exercise}
-            onChange={(e) => setExercise(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-            required
-          >
-            <option value="">{t("select")}</option>
-            <option value="daily">{t("exercise-daily")}</option>
-            <option value="weekly">{t("exercise-weekly")}</option>
-            <option value="rarely">{t("exercise-rarely")}</option>
-            <option value="never">{t("exercise-never")}</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">{t("smoking")}</label>
-          <div className="space-x-4">
-            <label>
-              <input
-                type="radio"
-                value="yes"
-                checked={smoking === "yes"}
-                onChange={(e) => setSmoking(e.target.value)}
-              />{" "}
-              {t("yes")}
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="no"
-                checked={smoking === "no"}
-                onChange={(e) => setSmoking(e.target.value)}
-              />{" "}
-              {t("no")}
-            </label>
-          </div>
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">{t("stress")}</label>
-          <div className="space-x-4">
-            <label>
-              <input
-                type="radio"
-                value="yes"
-                checked={stress === "yes"}
-                onChange={(e) => setStress(e.target.value)}
-              />{" "}
-              {t("yes")}
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="no"
-                checked={stress === "no"}
-                onChange={(e) => setStress(e.target.value)}
-              />{" "}
-              {t("no")}
-            </label>
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          disabled={!isFormChanged}
-          className={`px-4 py-2 rounded ${
-            isFormChanged
-              ? "bg-green-600 text-white hover:bg-green-700"
-              : "bg-gray-400 text-gray-700 cursor-not-allowed"
-          }`}
+      <div>
+        <label className="block mb-1 font-medium">{t("exercise")}</label>
+        <select
+          value={exercise}
+          onChange={(e) => setExercise(e.target.value)}
+          className="w-full border rounded px-3 py-2"
+          required
         >
-          {t("submit")}
-        </button>
+          <option value="">{t("select")}</option>
+          <option value="daily">{t("exercise-daily")}</option>
+          <option value="weekly">{t("exercise-weekly")}</option>
+          <option value="rarely">{t("exercise-rarely")}</option>
+          <option value="never">{t("exercise-never")}</option>
+        </select>
+      </div>
 
-        {submitted && (
-          <div className="mt-4 text-green-600 font-medium space-y-2">
-            {bmi !== null && (
-              <p>
-                {t("your-bmi-is")} {bmi} — {t(getBmiCategoryKey(bmi, parseInt(age)))}
-              </p>
-            )}
-            {riskScore !== null && (
-              <p>
-                {t("your-risk-score-is")} {riskScore} / 3
-              </p>
-            )}
-            {recommendation && <p>{recommendation}</p>}
-          </div>
-        )}
-      </form>
-    </>
+      <div>
+        <label className="block mb-1 font-medium">{t("smoking")}</label>
+        <div className="space-x-4">
+          <label>
+            <input
+              type="radio"
+              value="yes"
+              checked={smoking === "yes"}
+              onChange={(e) => setSmoking(e.target.value)}
+            />{" "}
+            {t("yes")}
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="no"
+              checked={smoking === "no"}
+              onChange={(e) => setSmoking(e.target.value)}
+            />{" "}
+            {t("no")}
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label className="block mb-1 font-medium">{t("stress")}</label>
+        <div className="space-x-4">
+          <label>
+            <input
+              type="radio"
+              value="yes"
+              checked={stress === "yes"}
+              onChange={(e) => setStress(e.target.value)}
+            />{" "}
+            {t("yes")}
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="no"
+              checked={stress === "no"}
+              onChange={(e) => setStress(e.target.value)}
+            />{" "}
+            {t("no")}
+          </label>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        disabled={!isFormChanged}
+        className={`px-4 py-2 rounded ${
+          isFormChanged
+            ? "bg-green-600 text-white hover:bg-green-700"
+            : "bg-gray-400 text-gray-700 cursor-not-allowed"
+        }`}
+      >
+        {t("submit")}
+      </button>
+    </form>
   );
 }
