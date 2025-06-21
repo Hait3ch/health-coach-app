@@ -36,5 +36,6 @@
   "welcome-title": "Tervetuloa Terveysvalmentaja-sovellukseen",
   "welcome-description": "Tämä työkalu arvioi elämäntapatottumustesi terveysriskit ja antaa henkilökohtaisia suosituksia.",
   "start-health-check": "Aloita terveystarkastus",
-  "health-check-title": "Täytä terveystarkastus"
+  "health-check-title": "Täytä terveystarkastus",
+  "submit-success": "Terveystarkastus on tallennettu"
 }

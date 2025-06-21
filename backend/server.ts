@@ -17,6 +17,24 @@ app.get("/health-checks", async (req, res) => {
   }
 });
 
+app.post("/health-checks", async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const healthCheckData = req.body;
+
+    const result = await db
+      .collection("healthChecks")
+      .insertOne(healthCheckData);
+
+    res
+      .status(201)
+      .json({ message: "Health check saved", insertedId: result.insertedId });
+  } catch (error) {
+    console.error("Error saving health check:", error);
+    res.status(500).json({ error: "Failed to save health check" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () =>
   console.log(`Backend running on http://localhost:${PORT}`)

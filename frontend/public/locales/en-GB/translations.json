@@ -36,5 +36,6 @@
   "welcome-title": "Welcome to the Health Coach App",
   "welcome-description": "This tool helps assess your lifestyle health risks and offers personalized recommendations.",
   "start-health-check": "Start Health Check",
-  "health-check-title": "Complete Your Health Check"
+  "health-check-title": "Complete Your Health Check",
+  "submit-success": "Health check is saved"
 }
