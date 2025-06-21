@@ -1,9 +1,11 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function QuestionnaireForm() {
+  const { user } = useUser();
   const { t } = useTranslation();
 
   const [age, setAge] = useState("");
@@ -61,6 +63,10 @@ export default function QuestionnaireForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) {
+      alert(t("please-login"));
+      return;
+    }
     setSubmitted(true);
 
     const ageNum = parseInt(age);
@@ -80,6 +86,7 @@ export default function QuestionnaireForm() {
     }
 
     const dataToSend = {
+      userId: user.id,
       age: ageNum,
       height: parseFloat(height),
       weight: parseFloat(weight),
@@ -115,7 +122,6 @@ export default function QuestionnaireForm() {
 
   return (
     <>
-      {/* Sliding notification banner bottom right */}
       <div
         className={`fixed bottom-10 right-0 bg-green-600 text-white px-6 py-3 rounded shadow-md z-50 transform transition-transform duration-300 ${
           showSuccess ? "translate-x-0 right-4" : "translate-x-full"

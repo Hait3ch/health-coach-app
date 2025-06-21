@@ -1,16 +1,46 @@
-"use client"
+"use client";
 
-import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/nextjs"
-import { useTranslation } from "react-i18next"
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/nextjs";
+import { useTranslation } from "react-i18next";
+
+type HealthCheck = {
+  _id: string;
+  submittedAt: string;
+  riskScore: number;
+  recommendation: string | null;
+};
 
 export default function HealthChecksPage() {
-  const { t } = useTranslation()
+  const { user } = useUser();
+  const [checks, setChecks] = useState<HealthCheck[]>([]);
+  const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
-  // For now, mock some health checks
-  const mockChecks = [
-    { id: 1, date: "2024-06-01", risk: "Low" },
-    { id: 2, date: "2024-05-15", risk: "Moderate" },
-  ]
+  useEffect(() => {
+    const userId = user?.id;
+    if (!userId) return;
+
+    async function fetchChecks() {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/health-check?userId=${userId}`);
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        setChecks(data);
+      } catch (error) {
+        console.error(error);
+        setChecks([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchChecks();
+  }, [user]);
+
+  if (!user) return null;
 
   return (
     <>
@@ -22,14 +52,30 @@ export default function HealthChecksPage() {
         <div className="max-w-3xl mx-auto px-4 py-6">
           <h1 className="text-2xl font-bold mb-4">{t("your-health-checks")}</h1>
 
-          {mockChecks.length === 0 ? (
+          {loading ? (
+            <p>{t("loading")}...</p>
+          ) : checks.length === 0 ? (
             <p className="text-gray-600">{t("no-health-checks")}</p>
           ) : (
             <ul className="space-y-3">
-              {mockChecks.map((check) => (
-                <li key={check.id} className="border p-4 rounded shadow-sm">
-                  <p><strong>{t("date")}:</strong> {check.date}</p>
-                  <p><strong>{t("risk-level")}:</strong> {check.risk}</p>
+              {checks.map((check) => (
+                <li
+                  key={check._id}
+                  className="border p-4 rounded shadow-sm"
+                >
+                  <p>
+                    <strong>{t("date")}:</strong>{" "}
+                    {new Date(check.submittedAt).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>{t("risk-score")}:</strong> {check.riskScore}
+                  </p>
+                  {check.recommendation && (
+                    <p>
+                      <strong>{t("recommendation")}:</strong>{" "}
+                      {check.recommendation}
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>
@@ -41,5 +87,5 @@ export default function HealthChecksPage() {
         </div>
       </SignedIn>
     </>
-  )
+  );
 }

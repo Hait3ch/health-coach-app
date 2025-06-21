@@ -1,12 +1,29 @@
-import { NextResponse } from "next/server"
+import { NextResponse, NextRequest } from "next/server"
 
 const BACKEND_URL = "http://localhost:4000/health-checks"
 
-export async function GET() {
-  const res = await fetch(BACKEND_URL)
-  const data = await res.json()
-  return NextResponse.json(data)
-}
+export async function GET(req: NextRequest) {
+    try {
+      const { searchParams } = new URL(req.url)
+      const userId = searchParams.get("userId")
+      if (!userId) {
+        return NextResponse.json({ error: "Missing userId" }, { status: 400 })
+      }
+  
+      const res = await fetch(`${BACKEND_URL}?userId=${encodeURIComponent(userId)}`)
+  
+      if (!res.ok) {
+        return NextResponse.json({ error: "Backend fetch failed" }, { status: res.status })
+      }
+  
+      const data = await res.json()
+      return NextResponse.json(data)
+    } catch (error) {
+      console.error("API proxy error:", error)
+      return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    }
+  }
+  
 
 export async function POST(request: Request) {
   try {
