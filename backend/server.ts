@@ -4,7 +4,17 @@ import { connectToDatabase } from "./utils/mongodb";
 import { ObjectId } from "mongodb";
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",")
+  : ["http://localhost:3000"];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+  })
+);
+
 app.use(express.json());
 
 app.get("/health-checks", async (req, res) => {

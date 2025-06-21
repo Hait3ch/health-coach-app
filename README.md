@@ -8,19 +8,19 @@ A fullstack health assessment web application where users answer a short questio
 
 - **Frontend**: Next.js (App Router) + TypeScript + Tailwind CSS
 - **Backend**: Node.js + Express
-- **Database**: MongoDB Atlas (cloud)
-- **Authentication**: Clerk.dev
+- **Database**: MongoDB Atlas
+- **Authentication**: [Clerk.dev](https://clerk.com/)
 - **Hosting**:
-  - Frontend: Vercel
-  - Backend: Render
+  - Frontend: [Vercel](https://vercel.com/)
+  - Backend: [Render](https://render.com/)
 - **CI/CD**: GitHub Actions
 
 ---
 
 ## 🚀 Live Demo
 
-- 🌐 App: [https://your-app.vercel.app](https://your-app.vercel.app)
-- ⚙️ API: [https://your-api.onrender.com](https://your-api.onrender.com)
+- 🌐 App: [health-coach-app-mu.vercel.app](https://health-coach-app-mu.vercel.app/)
+- ⚙️ API: [health-coach-app.onrender.com](https://health-coach-app.onrender.com/)
 
 ---
 
