@@ -11,10 +11,30 @@ export default function LandingPage() {
       <h1 className="text-3xl font-bold mb-4">{t("welcome-title")}</h1>
       <p className="mb-6 text-gray-700">{t("welcome-description")}</p>
       <Link href="/health-check">
-        <button className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+        <button className="mb-10 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
           {t("start-health-check")}
         </button>
       </Link>
+      <div className="mb-8 text-left">
+        <h2 className="text-xl font-semibold mb-2">{t("what-is-app")}</h2>
+        <p>
+          {t("app-intro")}
+        </p>
+        <h2 className="text-xl font-semibold mt-4 mb-2">{t("features")}</h2>
+        <ul className="list-disc list-inside mb-2">
+          <li>{t("feature-questionnaire")}</li>
+          <li>{t("feature-assessment")}</li>
+          <li>{t("feature-recommendations")}</li>
+          <li>{t("feature-tracking")}</li>
+          <li>{t("feature-languages")}</li>
+        </ul>
+        <h2 className="text-xl font-semibold mt-4 mb-2">{t("try-it-out")}</h2>
+        <p>
+          {t("test-account-info")}<br/>
+          <strong>{t("test-email")}</strong> test_user@test.com<br/>
+          <strong>{t("test-password")}</strong> healthapp123?
+        </p>
+      </div>
     </main>
   )
 }

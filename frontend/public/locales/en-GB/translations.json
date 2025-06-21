@@ -56,5 +56,19 @@
   "health-check-result": "Health Check Result",
   "bmi": "BMI",
   "not-available": "N/A",
-  "failed-to-load-check": "Failed to load health check data"
+  "failed-to-load-check": "Failed to load health check data",
+  "what-is-app": "What is Health Coach App?",
+  "app-intro": "Health Coach App helps you assess your lifestyle health risks and provides personalized recommendations to improve your well-being. Whether you want to track your health, get actionable advice, or simply learn more about healthy habits, this app is for you!",
+  "features": "Features:",
+  "feature-questionnaire": "Quick and easy health check questionnaire",
+  "feature-assessment": "Personalized health risk assessment",
+  "feature-recommendations": "Actionable lifestyle recommendations",
+  "feature-tracking": "Track your previous health checks",
+  "feature-languages": "Available in English and Finnish",
+  "try-it-out": "Try it out!",
+  "test-account-info": "Use our test account to explore the app:",
+  "test-email": "Email:",
+  "test-password": "Password:",
+  "your-privacy": "Your Privacy",
+  "privacy-notice": "Your privacy is important to us. All your data is securely stored and never shared with third parties. You can read more on our Consent & Data Policy page."
 }

@@ -56,5 +56,19 @@
   "health-check-result": "Terveystarkastuksen tulos",
   "bmi": "BMI",
   "not-available": "Ei saatavilla",
-  "failed-to-load-check": "Terveystarkastustietojen lataaminen epäonnistui"
+  "failed-to-load-check": "Terveystarkastustietojen lataaminen epäonnistui",
+  "what-is-app": "Mikä on Terveysvalmentaja-sovellus?",
+  "app-intro": "Terveysvalmentaja-sovellus auttaa sinua arvioimaan elämäntapatottumustesi terveysriskit ja tarjoaa henkilökohtaisia suosituksia hyvinvointisi parantamiseksi. Haluatpa seurata terveyttäsi, saada toiminnallisia neuvoja tai yksinkertaisesti oppia lisää terveellisistä tavoista, tämä sovellus on sinua varten!",
+  "features": "Ominaisuudet:",
+  "feature-questionnaire": "Nopea ja helppo terveystarkastuskysely",
+  "feature-assessment": "Henkilökohtainen terveysriskin arviointi",
+  "feature-recommendations": "Toiminnalliset elämäntapasuositukset",
+  "feature-tracking": "Seuraa aiemmia terveystarkastuksiasi",
+  "feature-languages": "Saatavilla englanniksi ja suomeksi",
+  "try-it-out": "Kokeile sitä!",
+  "test-account-info": "Käytä testitiliämme sovelluksen tutkimiseen:",
+  "test-email": "Sähköposti:",
+  "test-password": "Salasana:",
+  "your-privacy": "Yksityisyytesi",
+  "privacy-notice": "Yksityisyytesi on meille tärkeää. Kaikki tietosi tallennetaan turvallisesti eikä niitä jaeta koskaan kolmansille osapuolille. Voit lukea lisää Suostumus ja tietojenkäsittely -sivultamme."
 }
