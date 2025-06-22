@@ -41,14 +41,11 @@ export default function HealthChecksPage() {
     fetchChecks();
   }, [user]);
 
-  if (!user) return null;
-
   return (
     <>
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
-
       <SignedIn>
         <div className="max-w-3xl mx-auto px-4 py-6">
           <h1 className="text-2xl font-bold mb-4">{t("your-health-checks")}</h1>
@@ -72,7 +69,7 @@ export default function HealthChecksPage() {
                       <strong>{t("recommendation")}:</strong> {check.recommendation}
                     </p>
                   )}
-                  <div className="flex gap-3">
+                  <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
                     <button
                       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                       onClick={() => {

@@ -1,5 +1,6 @@
 {
   "app-title": "Terveysvalmentaja-sovellus",
+  "app-title-short": "TVS",
   "sign-up": "Rekisteröidy",
   "login": "Kirjaudu",
   "health-checks": "Terveystarkastukset",
@@ -70,5 +71,11 @@
   "test-email": "Sähköposti:",
   "test-password": "Salasana:",
   "your-privacy": "Yksityisyytesi",
-  "privacy-notice": "Yksityisyytesi on meille tärkeää. Kaikki tietosi tallennetaan turvallisesti eikä niitä jaeta koskaan kolmansille osapuolille. Voit lukea lisää Suostumus ja tietojenkäsittely -sivultamme."
+  "privacy-notice": "Yksityisyytesi on meille tärkeää. Kaikki tietosi tallennetaan turvallisesti eikä niitä jaeta koskaan kolmansille osapuolille. Voit lukea lisää Suostumus ja tietojenkäsittely -sivultamme.",
+  "contact-title": "Ota yhteyttä",
+  "contact-description": "Jos tarvitset osaamistani, olet kiinnostunut työstäni ota rohkeasti yhteyttä LinkedInissä:",
+  "contact-linkedin": "Katso LinkedIn-profiilini",
+  "contact-github-text": "Tämä projekti on avoimen lähdekoodin ja löytyy GitHubista:",
+  "contact-github-button": "Katso GitHubissa",
+  "contact-questions": "Jos sinulla on kysyttävää, ota rohkeasti yhteyttä LinkedInissä!"
 }

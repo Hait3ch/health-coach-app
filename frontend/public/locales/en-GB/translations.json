@@ -1,5 +1,6 @@
 {
   "app-title": "Health Coach App",
+  "app-title-short": "HCA",
   "sign-up": "Sign Up",
   "login": "Login",
   "health-checks": "Health Checks",
@@ -70,5 +71,11 @@
   "test-email": "Email:",
   "test-password": "Password:",
   "your-privacy": "Your Privacy",
-  "privacy-notice": "Your privacy is important to us. All your data is securely stored and never shared with third parties. You can read more on our Consent & Data Policy page."
+  "privacy-notice": "Your privacy is important to us. All your data is securely stored and never shared with third parties. You can read more on our Consent & Data Policy page.",
+  "contact-title": "Contact Me",
+  "contact-description": "If you need my skills, feel free to reach out on LinkedIn:",
+  "contact-linkedin": "Visit my LinkedIn profile",
+  "contact-github-text": "This project is open source and available on GitHub:",
+  "contact-github-button": "View on GitHub",
+  "contact-questions": "If you have any questions, feel free to contact me on LinkedIn!"
 }

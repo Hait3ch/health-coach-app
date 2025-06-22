@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
@@ -10,6 +10,16 @@ export default function Header() {
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 640);
+    };
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLang = e.target.value;
@@ -26,7 +36,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo and title */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
             <Link href="/" className="flex items-center space-x-2 sm:space-x-4 hover:opacity-80">
               <Image
                 src="/assets/logo.png"
@@ -35,15 +45,23 @@ export default function Header() {
                 height={48}
                 className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16"
               />
-              <h1 className="text-lg sm:text-xl font-bold truncate">{t("app-title")}</h1>
+              <h1 className="text-lg sm:text-xl font-bold truncate">
+                {isSmallScreen ? t("app-title-short") : t("app-title")}
+              </h1>
             </Link>
 
-            {/* Health Checks link moved here */}
+            {/* Health Checks and Contact links only on md+ */}
             <Link
               href="/health-checks"
               className="hidden md:inline-block text-gray-700 hover:text-green-700 text-base px-3 py-2 rounded-md"
             >
               {t("health-checks")}
+            </Link>
+            <Link
+              href="/contact"
+              className="hidden md:inline-block text-gray-700 hover:text-green-700 text-base px-3 py-2 rounded-md"
+            >
+              {t("contact-title")}
             </Link>
           </div>
 
@@ -136,7 +154,13 @@ export default function Header() {
             >
               {t("health-checks")}
             </Link>
-
+            <Link
+              href="/contact"
+              className="text-gray-700 hover:text-green-700 block px-3 py-2 rounded-md text-base font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t("contact-title")}
+            </Link>
             <div className="pt-4 pb-3 border-t border-gray-200">
               <SignedOut>
                 <div className="space-y-2">
