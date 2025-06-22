@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@clerk/localizations": "^3.16.5",
     "@clerk/nextjs": "^6.22.0",
     "i18next": "^25.2.1",
     "i18next-browser-languagedetector": "^8.2.0",
